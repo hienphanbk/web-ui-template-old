@@ -1,0 +1,74 @@
+<md-dialog aria-label="Thay đổi ảnh màn hình của ứng dụng" style="width: 60%;">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Thay đổi ảnh màn hình của ứng dụng</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="closeUpdateImgDemo()">
+                <md-icon md-svg-src="assets\css\svg\ic_clear_white_36px.svg" aria-label="Close dialog"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <div class="md-dialog-content">
+            <div layout="column">
+                <div layout="row">
+                    <div flex="50">
+                            <form id="ImageDemo">
+                                <input type="file" file-model="imgFile"
+                                       ng-disabled="disableUpdateImgDemo"
+                                       style="color: rgba(0,0,0,0.38)"
+                                       onchange="angular.element(this).scope().uploadImgDemo(this)">
+                            </form>
+                    </div>
+                    <div flex="50">
+                        <md-button ng-disabled="disableUpdateImgDemo"
+                                   style="margin-top: -10px"
+                                   class="w3-blue" ng-click="updateImgDemo()">Cập nhật
+                        </md-button>
+                    </div>
+                </div>
+                <div ng-show="isErrorUpdateImgDemo" class="w3-panel w3-red">
+                    <div layout="row">
+                        <h3 flex="95">Errors</h3>
+                        <div flex="5" style="text-align: right">
+                            <md-button class="md-icon-button" ng-click="closeMessageUpdateImgDemo()">
+                                <i class="material-icons">cancel</i>
+                            </md-button>
+                        </div>
+                    </div>
+                    <p>{{messageUpdateImgDemo}}</p>
+                </div>
+                <div ng-show="isSuccesUpdateImgDemo" class="w3-panel w3-green">
+                    <div layout="row">
+                        <h3 flex="95">Success</h3>
+                        <div flex="5" style="text-align: right">
+                            <md-button class="md-icon-button" ng-click="closeMessageUpdateImgDemo()">
+                                <i class="material-icons">cancel</i>
+                            </md-button>
+                        </div>
+                    </div>
+                    <p>{{messageUpdateImgDemo}}</p>
+                </div>
+                <md-chips class="custom-chips" ng-model="slides"
+                          readonly="true"
+                          md-removable="!disableUpdateImgDemo">
+                    <md-chip-template>
+                            <span>
+                                <strong>{{$chip.nameImg}}</strong>
+                            </span>
+                    </md-chip-template>
+                    <button style="margin-left: 5px" md-chip-remove ng-click="removeImgDemo($chip)"
+                            class="md-primary vegetablechip">
+                        <!--<md-icon md-svg-icon="md-close"></md-icon>-->
+                        <md-icon md-svg-src="assets\css\svg\ic_clear_white_36px.svg"
+                                 aria-label="Close dialog"></md-icon>
+                    </button>
+                </md-chips>
+
+                <div layout="column" style="margin-top: 10px">
+                    <div slide-show images="listUriImg"></div>
+                </div>
+            </div>
+        </div>
+    </md-dialog-content>
+</md-dialog>

@@ -1,0 +1,40 @@
+<div>
+    <div class="category-title">Thông tin chi tiết ứng dụng</div>
+    <div class="w3-container w3-card-2" layout="column">
+        <div ng-include="'app/components/publish/detailApp/appInfo.view.html'"></div>
+        <div layout="column">
+            <md-tabs md-dynamic-height md-border-bottom>
+                <md-tab label="Đánh giá và xếp hạng">
+                    <md-content class="md-padding">
+                        <div ng-include="'app/components/publish/detailApp/review.view.html'"></div>
+                    </md-content>
+                </md-tab>
+                <md-tab label="Mô tả">
+                    <md-content class="md-padding">
+                        <div ng-include="'app/components/publish/detailApp/descApp.view.html'"></div>
+                    </md-content>
+                </md-tab>
+                <md-tab label="Test ứng dụng">
+                    <md-content class="md-padding">
+                        <div ng-include="'app/components/publish/detailApp/tester.view.html'"></div>
+                    </md-content>
+                </md-tab>
+                <md-tab label="Quản lý của ứng dụng">
+                    <md-content class="md-padding">
+                        <div ng-include="'app/components/publish/detailApp/manager.view.html'"></div>
+                    </md-content>
+                </md-tab>
+                <md-tab label="Ảnh màn hình">
+                    <md-content class="md-padding">
+                        <div ng-include="'app/components/publish/detailApp/demoImg.view.html'"></div>
+                    </md-content>
+                </md-tab>
+                <md-tab label="Thông tin lỗi">
+                    <md-content class="md-padding">
+                        <div ng-include="'app/components/publish/detailApp/error.view.html'"></div>
+                    </md-content>
+                </md-tab>
+            </md-tabs>
+        </div>
+    </div>
+</div>

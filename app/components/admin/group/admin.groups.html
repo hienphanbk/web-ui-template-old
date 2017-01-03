@@ -1,0 +1,28 @@
+<div class="category-title">Danh sách nhóm người dùng</div>
+<div class="w3-container w3-card-2" layout="column">
+    <div>
+        <md-button class="w3-blue" style="margin-left: 0px" ng-click="vm.showAddGroupDialog($event)">Thêm</md-button>
+    </div>
+    <div class="w3-grey" layout="row" style="margin-top: 5px; padding:5px;">
+        <span class="c5"><b>STT</b></span>
+        <span class="c10"><b>Mã</b></span>
+        <span class="c20"><b>Tên nhóm</b></span>
+        <span class="c50"><b>Mô tả</b></span>
+        <span style="padding-left: 2px"><b>Xử lý</b></span>
+    </div>
+    <div ng-repeat="group in vm.groups" layout="row" class="w3-hover-light-blue w3-border-bottom"
+         style="padding: 5px;min-height: 45px;line-height: 35px;">
+        <span class="c5">{{($index + 1)}}</span>
+        <span class="c10">{{group.id}}</span>
+        <span class="c20">{{group.name}}</span>
+        <span class="c50">{{group.desc}}</span>
+        <span>
+            <md-button class="w3-hover-grey" ng-click="vm.updateGroup($index,$event)" style="background: lightgray;margin-top: 0px;margin-left: 0px; margin-right: 0px; min-width: 0px">
+                <md-icon md-svg-src="assets/css/svg/ic_edit_black_24px.svg" aria-label="Update group"></md-icon>
+            </md-button>
+            <md-button class="w3-hover-grey" ng-click="vm.removeGroup($index)" style="background: lightgray;margin-top: 0px;margin-left: 0px; margin-right: 0px; min-width: 0px">
+                <md-icon md-svg-src="assets/css/svg/ic_delete_black_24px.svg" aria-label="Remove group"></md-icon>
+            </md-button>
+        </span>
+    </div>
+</div>

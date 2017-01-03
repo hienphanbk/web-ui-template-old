@@ -1,0 +1,123 @@
+<!--<div class="c70" layout="column" layout-fill="">-->
+<md-dialog class="c70">
+    <div class="w3-blue" layout="row" style="padding-left: 10px; padding-right: 10px">
+        <h4>Cập nhật nhóm người dùng</h4>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()" style="margin: auto">
+            <md-icon md-svg-src="assets/css/svg/ic_close_white_24px.svg" aria-label="Close dialog"></md-icon>
+        </md-button>
+    </div>
+    <div style="padding: 10px">
+        <div layout="row">
+            <div flex="50" layout="column" style="padding-right: 10px">
+                <md-input-container class="md-block" style="margin-bottom: 0px">
+                    <label>Mã nhóm (Ví dụ: vitm_mobile)</label>
+                    <input ng-model="group.id" required type="text" name="groupId" disabled/>
+                </md-input-container>
+                <md-input-container class="md-block" style="margin-bottom: 0px">
+                    <label>Tên nhóm</label>
+                    <input ng-model="group.name"  required type="text" name="groupId"/>
+                </md-input-container>
+            </div>
+            <div flex="50">
+                <md-input-container class="md-block" style="margin-bottom: 0px">
+                    <label>Mô tả</label>
+                    <!--<input required type="text" name="groupId"/>-->
+                    <textarea ng-model="group.desc"  rows="2" md-select-on-focus></textarea>
+                </md-input-container>
+            </div>
+        </div>
+        <md-button class="w3-blue" style="margin-left: 0px; margin-bottom: 10px; margin-top: 0px" ng-click="updateGroup(group)">Cập nhật</md-button>
+
+        <!-- Thong tin user thuoc nhom va nhom thuoc nhom -->
+        <div layout="row">
+            <!-- List users -->
+            <div flex="50" layout="column"  style="padding-right: 10px">
+                <div class="w3-border" layout="column">
+                    <span class="w3-grey" style="padding: 5px; height: 30px;line-height: 25px;">
+                        <b>Người dùng thuộc nhóm</b>
+                    </span>
+
+                    <!-- Auto-complete text -->
+                    <div layout="row" style="padding: 5px; min-height: 30px;line-height: 25px; margin-top: 1px">
+                        <div layout-fill="">
+                            <md-autocomplete
+                                    md-selected-item="selectedUser"
+                                    md-search-text-change="userSearchTextChange(userSearchText)"
+                                    md-search-text="userSearchText"
+                                    md-selected-item-change="selectedUserChange(user)"
+                                    md-items="user in queryUsers(userSearchText)"
+                                    md-item-text="user.name"
+                                    md-min-length="2"
+                                    placeholder="Thêm người dùng (nhập tên/sđt)">
+                                <md-item-template>
+                                    <span md-highlight-text="userSearchText" md-highlight-flags="^i">{{user.name}}</span>
+                                </md-item-template>
+                                <md-not-found>
+                                    Không tìm thấy người dùng phù hợp: "{{userSearchText}}".
+                                </md-not-found>
+                            </md-autocomplete>
+                        </div>
+                    </div>
+
+                    <!-- List user -->
+                    <div ng-repeat="user in usersOfGroup"  layout="row"  class="w3-hover-light-blue w3-border-bottom"
+                         style="padding: 5px;min-height: 45px;line-height: 35px; margin-left: 5px; margin-right: 5px">
+                        <span class="c10">{{$index + 1}}</span>
+                        <span class="c30">{{user.id}}</span>
+                        <span class="c50">{{user.name}}</span>
+                        <span>
+                            <md-button ng-click="removeUser(user)" class="w3-hover-grey" style="background: lightgray;margin:0px; min-width: 0px">
+                                <md-icon md-svg-src="assets/css/svg/ic_delete_black_18px.svg" aria-label="remove user from group"></md-icon>
+                            </md-button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- List groups -->
+            <div flex="50" layout="column">
+                <div class="w3-border" layout="column">
+                    <span class="w3-grey" style="padding: 5px; height: 30px;line-height: 25px;">
+                        <b>Nhóm con</b>
+                    </span>
+
+                    <!-- Auto-complete text -->
+                    <div layout="row" style="padding: 5px; min-height: 30px;line-height: 25px; margin-top: 1px">
+                        <div layout-fill="">
+                            <md-autocomplete
+                                    md-selected-item="selectedGroup"
+                                    md-search-text-change="groupSearchTextChange(groupSearchText)"
+                                    md-search-text="groupSearchText"
+                                    md-selected-item-change="selectedGroupChange(group)"
+                                    md-items="group in queryGroups(groupSearchText)"
+                                    md-item-text="group.name"
+                                    md-min-length="2"
+                                    placeholder="Thêm nhóm (nhập tên/sđt)">
+                                <md-item-template>
+                                    <span md-highlight-text="groupSearchText" md-highlight-flags="^i">{{group.name}}</span>
+                                </md-item-template>
+                                <md-not-found>
+                                    Không tìm thấy nhóm phù hợp: "{{groupSearchText}}".
+                                </md-not-found>
+                            </md-autocomplete>
+                        </div>
+                    </div>
+
+                    <!-- List group -->
+                    <div layout="row" ng-repeat="group in groupOfGroup" layout="row"  class="w3-hover-light-blue w3-border-bottom"
+                         style="padding: 5px;min-height: 45px;line-height: 35px; margin-left: 5px; margin-right: 5px">
+                        <div class="c10">{{$index + 1}}</div>
+                        <div class="c30">{{group.id}}</div>
+                        <div class="c50">{{group.name}}</div>
+                        <span>
+                            <md-button ng-click="removeGroup(group)" class="w3-hover-grey" style="background: lightgray;margin:0px; min-width: 0px">
+                                <md-icon md-svg-src="assets/css/svg/ic_delete_black_18px.svg" aria-label="remove user from group"></md-icon>
+                            </md-button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</md-dialog>

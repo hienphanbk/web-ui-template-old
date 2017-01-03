@@ -1,0 +1,102 @@
+<div layout="row" class="w3-border-bottom">
+    <div class="pd10 c20">
+        <div layout-fill="true">
+            <!--<img class="app_detail_icon w3-round" ng-src="vm.iconUrl">-->
+            <img style="cursor:pointer"  class="app_detail_icon w3-round" ng-click="vm.showDialogUpdateIcon($event)" src="{{vm.urlIcon}}">
+        </div>
+    </div>
+    <div layout="row" class="pd10 c80">
+        <div class="w3-code" style="padding-left: 0px"></div>
+        <div layout="column" class="pd10" flex>
+            <b>{{vm.selectedApp.appInfo.nameApp}}</b>
+            <div>Phát triển bởi <span flex/> <a href="#">{{vm.selectedApp.appInfo.ownedByUserName}}</a></div>
+            <div>Hệ điều hành <span flex/> {{vm.selectedApp.appInfo.osType}}</div>
+            <div ng-show="vm.selectedApp.appInfo.versionInfo.type =='iosVersionInfo'">Phiên bản <span flex/> {{vm.selectedApp.appInfo.versionInfo.bundleVersionName}}</div>
+            <div ng-show="vm.selectedApp.appInfo.versionInfo.type =='iosVersionInfo'">Phiên bản code<span flex/> {{vm.selectedApp.appInfo.versionInfo.bundleVersion}}</div>
+            <div ng-show="vm.selectedApp.appInfo.versionInfo.type =='androidVersionInfo'">Phiên bản <span flex/> {{vm.selectedApp.appInfo.versionInfo.versionName}}</div>
+            <div ng-show="vm.selectedApp.appInfo.versionInfo.type =='androidVersionInfo'">Phiên bản code <span flex/> {{vm.selectedApp.appInfo.versionInfo.versionCode}}</div>
+            <div>Đánh giá <span flex/> {{vm.selectedApp.appInfo.avgRating}}</div>
+            <div>Trạng thái <span flex/> {{vm.selectedApp.appInfo.versionInfo.status}}</div>
+            <div ng-show="vm.isErrorUpdateStatus" class="w3-panel w3-red">
+                <div layout="row">
+                    <h3 flex="95">Errors</h3>
+                    <div flex="5" style="text-align: right">
+                        <md-button class="md-icon-button" ng-click="vm.closeMessageUpdateStatus()">
+                            <i class="material-icons">cancel</i>
+                        </md-button>
+                    </div>
+                </div>
+                <p>{{vm.messageUpdateStatus}}</p>
+            </div>
+            <div ng-show="vm.isSuccesUpdateStatus" class="w3-panel w3-green">
+                    <div layout="row">
+                        <h3 flex="95">Success</h3>
+                        <div flex="5" style="text-align: right">
+                            <md-button class="md-icon-button" ng-click="vm.closeMessageUpdateStatus()">
+                                <i class="material-icons">cancel</i>
+                            </md-button>
+                        </div>
+                    </div>
+                    <p>{{vm.messageUpdateStatus}}</p>
+                </div>
+            <div layout="row">
+                <md-button style="margin-left: 0px; margin-right: 10px" ng-hide="vm.selectedApp.appInfo.versionInfo.status == 'TESTING'"
+                           class="w3-blue" flex="25" ng-click="vm.changeStatus('TESTING')" >TEST</md-button>
+                <md-button style="margin-left: 0px; margin-right: 10px" ng-hide="vm.selectedApp.appInfo.versionInfo.status == 'PUBLISHED'"
+                           class="w3-blue" flex="25" ng-click="vm.changeStatus('PUBLISHED')">PUBLISH</md-button>
+                <md-button style="margin-left: 0px; margin-right: 10px" ng-hide="vm.selectedApp.appInfo.versionInfo.status == 'DRAFT'"
+                           class="w3-blue" flex="25" ng-click="vm.changeStatus('DRAFT')">DRAFT</md-button>
+                <md-button style="margin-left: 0px; margin-right: 10px"
+                           class="w3-blue" flex="25" ng-click="vm.showConfirm($event)">REMOVE</md-button>
+                <!--<md-button style="margin-left: 0px; margin-right: 10px"-->
+                           <!--class="w3-blue" flex="25" ng-click="vm.versionModule()">UPDATE VERSION</md-button>-->
+                <md-button class="w3-blue" ng-click="vm.showDialogUpdateVersion($event)" flex="25" flex-gt-md="auto">
+                    Nâng cấp version
+                </md-button>
+            </div>
+            <div ng-show="vm.isUpdateVersion" style="border-top-style: ridge">
+                <div layout="row" style="margin-top: 10px">
+                    <div flex></div><div class="w3-hover-blue" ng-click="vm.closeUpdateVersion()"><img src="assets/css/svg/ic_close_black_24px.svg"></div>
+                </div>
+                <div layout="column">
+                    <div layout="row">
+                        <span flex="20" style="font-weight: bold;">Upload file cài đặt</span>
+                        <form id="upVerApp" flex="40">
+                            <input  type="file"
+                                   file-model="vm.fileVersion"
+                                   onchange="angular.element(this).scope().uploadVersionApp(this)"/>
+                        </form>
+                        <md-progress-circular ng-show="vm.isUpdatingVersion" class="md-hue-2" md-diameter="80%" style="margin-top: 10px"></md-progress-circular>
+                    </div>
+                    <div ng-show="vm.isErrorUpdateVersion" class="w3-panel w3-red">
+                        <div layout="row">
+                            <h3 flex="95">Errors</h3>
+                            <div flex="5" style="text-align: right">
+                                <md-button class="md-icon-button" ng-click="vm.closeMessageUpdateVersion()">
+                                    <i class="material-icons">cancel</i>
+                                </md-button>
+                            </div>
+                        </div>
+                        <p>{{vm.messageUpdateVersion}}</p>
+                    </div>
+                    <div ng-show="vm.isSuccesUpdateVersion" class="w3-panel w3-green">
+                        <div layout="row">
+                            <h3 flex="95">Success</h3>
+                            <div flex="5" style="text-align: right">
+                                <md-button class="md-icon-button" ng-click="vm.closeMessageUpdateVersion()">
+                                    <i class="material-icons">cancel</i>
+                                </md-button>
+                            </div>
+                        </div>
+                        <p>{{vm.messageUpdateVersion}}</p>
+                    </div>
+                    <div ng-show="vm.showUpversion">
+                        <md-button style="margin-left: 0px; margin-right: 10px"
+                                   class="w3-blue" flex="25" ng-click="vm.updateVersion()">UPDATE VERSION</md-button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

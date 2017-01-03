@@ -1,0 +1,139 @@
+<div>
+    <!-- Title -->
+    <div ng-show="isErrorDetail" class="w3-panel w3-red">
+        <div layout="row">
+            <h3 flex="95">Errors</h3>
+
+            <div flex="5" style="text-align: right">
+                <md-button class="md-icon-button" ng-click="closeMessageDetail()">
+                    <i class="material-icons">cancel</i>
+                </md-button>
+            </div>
+        </div>
+        <p>{{messageDetail}}</p>
+    </div>
+    <div class="category-title">Chi tiết ứng dụng</div>
+    <div class="w3-card-2 pd10" layout-fill="true" layout="column">
+        <!-- basic info -->
+        <div layout="row" class="w3-border-bottom">
+            <div class="pd10 c20">
+                <div layout-fill="true" ng-click="onImage()"><img class="app_detail_icon w3-round" src="{{iconUri}}"></div>
+            </div>
+            <div layout="row" class="pd10">
+                <div class="w3-code" style="padding-left: 0px"></div>
+                <div layout="column" class="pd10">
+                    <b>{{app.nameApp}}</b>
+                    <div>Phát triển bởi <span flex/> <a href="#">{{app.ownedByUserName}}</a></div>
+                    <div>Hệ điều hành <span flex/> {{appDetails.osType}}</div>
+                    <div ng-show="appDetails.osType == 'ANDROID'">Phiên bản <span flex/> {{appDetails.versionInfo.versionName}}</div>
+                    <div ng-show="appDetails.osType == 'ANDROID'">Phiên bản code <span flex/> {{appDetails.versionInfo.versionCode}}</div>
+                    <div ng-show="appDetails.osType == 'I-OS'">Phiên bản <span flex/> {{appDetails.versionInfo.bundleVersionName}}</div>
+                    <div ng-show="appDetails.osType == 'I-OS'">Phiên bản code <span flex/> {{appDetails.versionInfo.bundleVersion}}</div>
+                    <div>Đánh giá <span flex/> {{avgRating}}</div>
+                    <!--<div>-->
+                        <!--<md-button ng-disabled="isDownloading" class="w3-blue" style="margin-left: 0px" ng-click="onDownload()">Tải</md-button>-->
+                        <!--<md-progress-circular ng-show="isDownloading" class="md-hue-2" md-diameter="50%" style="margin-top: 10px"></md-progress-circular>-->
+                    <!--</div>-->
+
+                    <div ng-show="isShowIosDownload">
+                        <md-button href="{{manifestUrl}}" style="margin-left: 0px" class="w3-blue">Cài đặt</md-button>
+                    </div>
+
+                    <div ng-show="!isShowIosDownload">
+                        <md-button ng-disabled="isDownloading"  style="margin-left: 0px" class="w3-blue" ng-click="onDownload()">Tải</md-button>
+                        <md-progress-circular ng-show="isDownloading" class="md-hue-2" md-diameter="50%" style="margin-top: 10px"></md-progress-circular>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nội dung -->
+        <div layout="column" style="margin-top: 10px">
+            <div>
+                <b style="margin-top: 10px; margin-bottom: 10px">Mô tả</b>
+                <div class="w3-leftbar pd10"><pre style="font-family:Roboto, sans-serif;">{{appDetails.descApp}}</pre></div>
+            </div>
+
+            <div style="margin-top: 10px">
+                <b style="margin-top: 10px; margin-bottom: 10px">Ảnh màn hình</b>
+                <div slide-show images="images"></div>
+            </div>
+
+            <!-- Review -->
+            <div style="margin-top: 10px" layout="column">
+                <b style="margin-top: 10px; margin-bottom: 10px">Đánh giá người dùng</b>
+                <div layout="row">
+                    <div class="w3-tag w3-green" style="font-size: 300%;">{{avgRating}}<i class="material-icons md-24">star</i></div>
+                    <div class="w3-border pd10" flex>
+                        <div style="text-align: center">Số người đánh giá<br/><span style="font-size: 200%;">{{app.totalReview}}</span></div>
+                    </div>
+                </div>
+
+                <!-- Thêm mới đánh giá -->
+                <div layout="column" style="margin-top: 10px" class="w3-border pd10">
+                    <div><b>Đánh giá của bạn</b></div>
+                    <div rating-view data="myReview.rating"></div>
+
+                    <div ng-show="isMsgSucc" class="w3-panel w3-green">
+                        <div layout="row">
+                            <h3 flex="95">Success</h3>
+
+                            <div flex="5" style="text-align: right">
+                                <md-button class="md-icon-button" ng-click="closeMsg()">
+                                    <i class="material-icons">cancel</i>
+                                </md-button>
+                            </div>
+                        </div>
+                        <p>{{message}}</p>
+                    </div>
+                    <div ng-show="isMsg" class="w3-panel w3-red">
+                        <div layout="row">
+                            <h3 flex="95">Errors</h3>
+
+                            <div flex="5" style="text-align: right">
+                                <md-button class="md-icon-button" ng-click="closeMsg()">
+                                    <i class="material-icons">cancel</i>
+                                </md-button>
+                            </div>
+                        </div>
+                        <p>{{message}}</p>
+                    </div>
+
+                    <md-input-container style="margin-bottom: 0px;">
+                        <md-input>
+                            <label>Đánh giá</label>
+                            <textarea ng-model="myReview.content"></textarea>
+                        </md-input>
+                        <md-button ng-show="!isReviewed" style="margin-left: 0px" ng-click="addReview()" class="w3-blue">Thêm</md-button>
+                        <md-button ng-show="isReviewed" style="margin-left: 0px" ng-click="updateReview()" class="w3-blue">Cập nhật</md-button>
+                        <md-button ng-show="isReviewed" style="margin-left: 0px" ng-click="removeReview()" class="w3-blue">Xóa</md-button>
+                    </md-input-container>
+                </div>
+
+                <div layout="column" style="margin-top: 10px">
+                    <div ng-repeat="review in appReviews" style="background:ghostwhite; margin-bottom: 10px">
+                        <div class="w3-leftbar pd10 w3-hover-light-blue" layout="column">
+                            <div><b>{{review.userName}}</b> đánh giá: {{review.title}}</div>
+                            <div rating-view data="review.rating" disable="true"></div>
+                            <div><i style="font-size: 120%">"{{review.content}}"</i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- DU LIEU DAU VAO -->
+<!--appId:"viettel.com.homemee"-->
+<!--appName:"HOME MEE"-->
+<!--appStatus:"TEST"-->
+<!--appTester:Array[1] &ndash;&gt; ["841646078688"]-->
+<!--appVersionCode:0-->
+<!--avgReviews:0-->
+<!--demoImg:Array[2] &ndash;&gt; ["Penguins.jpg","Tulips.jpg"]-->
+<!--icon:"Koala.jpg"-->
+<!--installFilePath:"app-release-test.apk"-->
+<!--ownedByUserId:"841646078688"-->
+<!--ownedByUserName:"Phan Hi�?n"-->
+<!--totalRating:0-->
+<!--totalReview:0-->

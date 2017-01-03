@@ -1,0 +1,200 @@
+<md-dialog aria-label="Nâng cấp version ứng dụng" style="width: 60%;">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Nâng cấp version của ứng dụng</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="closeUpdateVersionInfo()">
+                <md-icon md-svg-src="assets\css\svg\ic_clear_white_36px.svg" aria-label="Close dialog"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <div class="md-dialog-content">
+            <div layout="column">
+                <div layout="row">
+                    <span flex="20" style="font-weight: bold;">Upload file cài đặt</span>
+                    <form id="upVerAppInfo" flex="40">
+                        <input type="file"
+                               ng-disabled="disableUpdate"
+                               file-model="fileVersion"
+                               onchange="angular.element(this).scope().uploadFileApp(this)"/>
+                    </form>
+                    <md-progress-circular ng-show="isUpdatingVersion" class="md-hue-2" md-diameter="80%"
+                                          style="margin-top: 10px"></md-progress-circular>
+                </div>
+                <div ng-show="isErrorUpdateVersion" class="w3-panel w3-red">
+                    <div layout="row">
+                        <h3 flex="95">Errors</h3>
+                        <div flex="5" style="text-align: right">
+                            <md-button class="md-icon-button" ng-click="closeMessageUpdateVersion()">
+                                <i class="material-icons">cancel</i>
+                            </md-button>
+                        </div>
+                    </div>
+                    <p>{{messageUpdateVersion}}</p>
+                </div>
+                <div ng-show="isSuccesUpdateVersion" class="w3-panel w3-green">
+                    <div layout="row">
+                        <h3 flex="95">Success</h3>
+                        <div flex="5" style="text-align: right">
+                            <md-button class="md-icon-button" ng-click="closeMessageUpdateVersion()">
+                                <i class="material-icons">cancel</i>
+                            </md-button>
+                        </div>
+                    </div>
+                    <p>{{messageUpdateVersion}}</p>
+                </div>
+
+                <div ng-show="showUpversion" layout="column" >
+                    <div class="w3-border pd10 flex"
+                         style="margin-top: 5px;" layout="column">
+                        <md-checkbox ng-disabled="disableUpdate"
+                                     aria-label="Chọn danh sách users, groups có thể thấy ứng dụng"
+                                     ng-model="isAvailable">
+                            Chọn danh sách user có thể thấy ứng dụng
+                        </md-checkbox>
+                        <div ng-show="isAvailable" layout="row">
+                            <md-autocomplete flex="100"
+                                             ng-disabled="disableUpdate"
+                                             md-selected-item="selectedAvailable"
+                                             md-search-text="searchAvailable"
+                                             md-search-text-change="querySearchAvailable(searchAvailable)"
+                                             md-selected-item-change="selectedItemAvailable(item)"
+                                             md-items="item in querySearchAvailable(searchAvailable)"
+                                             md-item-text="searchAvailable"
+                                             md-min-length="3"
+                                             placeholder="Nhập mã tên user, group cần tìm kiếm?"
+                                             md-menu-class="autocomplete-custom-template">
+                                <md-item-template>
+                                <span ng-show="item.groups" class="item-title">
+                                    <i class="material-icons md-24">group</i>
+                                    <strong>Groups:</strong>
+                                </span>
+                                    <span ng-show="!item.groups" class="item-title">
+                                    <i class="material-icons md-24">face</i>
+                                    <strong>Users:</strong>
+                                </span>
+                                    <span class="item-metadata">
+                                    <span md-highlight-text="searchUnAvailable" md-highlight-flags="^i"
+                                          class="item-metastat">
+                                       {{item.id}} -
+                                    </span>
+                                    <span md-highlight-text="searchUnAvailable" md-highlight-flags="^i"
+                                          class="item-metastat">
+                                       {{item.name}}
+                                    </span>
+                                </span>
+                                </md-item-template>
+                                <md-not-found>
+                                    Không tìm thấy "{{searchAvailable}}" .
+                                </md-not-found>
+                            </md-autocomplete>
+                            <i style="margin-top: 1%" class="material-icons">search</i>
+                        </div>
+                        <md-list ng-show="isAvailable">
+                            <md-list-item style="margin-bottom: 10px; background:ghostwhite;"
+                                          class="no-before w3-hover-light-blue"
+                                          ng-repeat="userAvailable in listUserAvailable">
+                                <div class="w3-leftbar pd10" layout="row">
+                                    <i ng-show="!userAvailable.groups" class="material-icons md-48">face</i>
+                                    <i ng-show="userAvailable.groups" class="material-icons md-48">group</i>
+                                    <div layout="column" style="margin-left: 20px;">
+                                        <span>Id    : {{userAvailable.id}}</span>
+                                        <span>Name      : {{userAvailable.name}}</span>
+                                        <span ng-show="userAvailable.groups">Groups</span>
+                                        <span ng-show="!userAvailable.groups">Users</span>
+                                    </div>
+                                    <span flex></span>
+                                    <div class="md-secondary">
+                                        <md-button style="margin-top: 10%" class="md-icon-button"
+                                                   ng-click="removeAvailable(userAvailable)">
+                                            <i class="material-icons" title="Xóa">delete</i>
+                                        </md-button>
+                                    </div>
+                                </div>
+                            </md-list-item>
+                        </md-list>
+                    </div>
+
+                    <div class="w3-border pd10 flex"
+                         style="margin-top: 5px;" layout="column">
+                        <md-checkbox ng-disabled="disableUpdate"
+                                     aria-label="Chặn những users, groups đối với ứng dụng này"
+                                     ng-model="isUnAvailable">
+                            Chặn những user đối với ứng dụng này
+                        </md-checkbox>
+                        <div ng-show="isUnAvailable" layout="row">
+                            <md-autocomplete
+                                    flex="100"
+                                    ng-disabled="disableUpdate"
+                                    md-selected-item="selectedUnAvailable"
+                                    md-search-text="searchUnAvailable"
+                                    md-search-text-change="querySearchUnAvailable(searchUnAvailable)"
+                                    md-selected-item-change="selectedItemUnAvailable(item)"
+                                    md-items="item in querySearchUnAvailable(searchUnAvailable)"
+                                    md-item-text="searchUnAvailable"
+                                    md-min-length="3"
+                                    placeholder="Nhập mã tên user, group cần tìm kiếm?"
+                                    md-menu-class="autocomplete-custom-template">
+                                <md-item-template>
+                                <span ng-show="item.groups" class="item-title">
+                                    <i class="material-icons md-24">group</i>
+                                    <strong>Groups:</strong>
+                                </span>
+                                    <span ng-show="!item.groups" class="item-title">
+                                    <i class="material-icons md-24">face</i>
+                                    <strong>Users:</strong>
+                                </span>
+                                    <span class="item-metadata">
+                                    <span md-highlight-text="searchUnAvailable" md-highlight-flags="^i"
+                                          class="item-metastat">
+                                       {{item.id}} -
+                                    </span>
+                                    <span md-highlight-text="searchUnAvailable" md-highlight-flags="^i"
+                                          class="item-metastat">
+                                       {{item.name}}
+                                    </span>
+                                </span>
+                                </md-item-template>
+                                <md-not-found>
+                                    Không tìm thấy "{{searchUnAvailable}}" .
+                                </md-not-found>
+                            </md-autocomplete>
+                            <i style="margin-top: 1%" class="material-icons">search</i>
+                        </div>
+                        <md-list ng-show="isUnAvailable">
+                            <md-list-item style="margin-bottom: 10px; background:ghostwhite;"
+                                          class="no-before w3-hover-light-blue"
+                                          ng-repeat="userUnAvailable in listUserUnAvailable">
+                                <div class="w3-leftbar pd10" layout="row">
+                                    <i ng-show="!userUnAvailable.groups" class="material-icons md-48">face</i>
+                                    <i ng-show="userUnAvailable.groups" class="material-icons md-48">group</i>
+                                    <div layout="column" style="margin-left: 20px;">
+                                        <span>Id    : {{userUnAvailable.id}}</span>
+                                        <span>Name      : {{userUnAvailable.name}}</span>
+                                        <span ng-show="userUnAvailable.groups">Groups</span>
+                                        <span ng-show="!userUnAvailable.groups">Users</span>
+                                    </div>
+                                    <span flex></span>
+                                    <div class="md-secondary">
+                                        <md-button style="margin-top: 10%" class="md-icon-button"
+                                                   ng-click="removeUnAvailable(userUnAvailable)">
+                                            <i class="material-icons" title="Xóa">delete</i>
+                                        </md-button>
+                                    </div>
+                                </div>
+                            </md-list-item>
+                        </md-list>
+                    </div>
+                </div>
+
+                <div ng-show="showUpversion">
+                    <md-button ng-disabled="disableUpdate"
+                               style="margin-left: 0px; margin-right: 10px"
+                               class="w3-blue" flex="25" ng-click="updateVersion()">UPDATE VERSION
+                    </md-button>
+                </div>
+            </div>
+        </div>
+    </md-dialog-content>
+</md-dialog>

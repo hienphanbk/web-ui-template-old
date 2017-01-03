@@ -1,0 +1,24 @@
+<div layout="column" ng-controller="MenuController as vm" ng-cloak>
+    <md-nav-bar nav-bar-aria-label="navigation links">
+        <md-nav-bar md-selected-nav-item="vm.currentNavItem" nav-bar-aria-label="navigation selected">
+            <div ng-repeat="item in vm.allowMenuItems">
+                <md-nav-item md-nav-sref="{{item.state}}" name="{{item.url}}">{{item.name}}</md-nav-item>
+            </div>
+        </md-nav-bar>
+        <span flex></span>
+
+        <div layout="row" class="center-all" style="margin-right: 10px">
+            <!--<div class="w3-blue w3-round" style="width: 40px; height: 40px">-->
+                <!--<md-button class="md-icon-button md-primary" aria-label="Android" style="margin-left:0px; margin-top: 0px; margin-bottom: 0px">-->
+                    <!--<md-icon md-svg-icon="assets/css/svg/ic_android_white_36px.svg"></md-icon>-->
+                <!--</md-button>-->
+            <!--</div>-->
+            <div><span class="vertial-center w3-border-bottom" style="font-size: small; height: 40px; margin-right: 10px"><b>{{vm.currentUsername}}</b></span></div>
+            <div icon-button on-click="vm.changeToAndroid()" ng-show="!vm.isAndroid"  img="vm.androidIconUrl" tooltips="vm.androidIconTooltips"></div>
+            <div icon-button on-click="vm.changeToIos()" ng-show="!vm.isIos" img="vm.iOsIconUrl" tooltips="vm.iOsIconTooltips"></div>
+            <div icon-button img="vm.exitIconUrl" tooltips="vm.exitButtonTooltips" ng-click="vm.logout()"></div>
+            <!--&lt;!&ndash;<md-button class="md-raised md-primary" nav-bar-aria-label="logout" ng-click="vm.logout()">Đăng xuất&ndash;&gt;-->
+            <!--</md-button>-->
+        </div>
+
+</div>

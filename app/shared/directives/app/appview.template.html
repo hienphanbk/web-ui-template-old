@@ -1,0 +1,26 @@
+<div layout="column" style="height: 100%">
+    <div flex="60" layout="row" class="w3-hover-grey" layout-align="center center">
+        <img style="cursor:pointer"  ng-click="onImage()" class="app_icon w3-round" src="{{iconUri}}">
+    </div>
+    <div flex="40" layout="column" style="padding: 10px 10px 10px 10px">
+        <!-- Info -->
+        <span><b>{{app.nameApp}}</b></span>
+        <i class="w3-hover-blue" ng-show="app.versionInfo.type == 'iosVersionInfo'">version: {{app.versionInfo.bundleVersionName}}</i>
+        <i class="w3-hover-blue" ng-show="app.versionInfo.type == 'androidVersionInfo'">version: {{app.versionInfo.versionName}}</i>
+        <div ng-click="onUsername()">by <i class="w3-hover-blue">{{app.ownedByUserName}}</i></div>
+        <!-- Rating + button download -->
+        <div layout="row" style="margin-top: auto; margin-bottom: auto" class="w3-border-top" >
+            <div><b>rating: {{avgRating}} </b></div>
+            <span flex></span>
+            <div ng-show="isShowIosDownload">
+                <md-button ng-href="{{manifestUrl}}" style="margin-left: 0px" class="w3-blue">Cài đặt</md-button>
+                <!--<a href="{{manifestUrl}}" style="margin-left: 0px">Cài đặt</a>-->
+            </div>
+
+            <div ng-show="!isShowIosDownload">
+                <md-button ng-disabled="isDownloading"  style="margin-left: 0px" class="w3-blue" ng-click="onDownload()">Tải</md-button>
+                <md-progress-circular ng-show="isDownloading" class="md-hue-2" md-diameter="50%" style="margin-top: 10px"></md-progress-circular>
+            </div>
+        </div>
+    </div>
+</div>

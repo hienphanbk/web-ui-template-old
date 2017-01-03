@@ -1,0 +1,203 @@
+<div ng-controller="ReportController as vm">
+    <!-- show/hide dashboard-->
+    <div class="fixed-bottom-right" ng-hide="vm.isShowDetailErrorGroup">
+        <md-button class="md-fab" style="width: 40px; height: 40px; padding: 0 0 0 0px;" ng-click="vm.showDashboard()"  aria-label="Show dashboard">
+            <md-tooltip md-direction="bottom">
+                Show/Hide dashboard
+            </md-tooltip>
+            <md-icon md-svg-src="assets/css/svg/ic_clear_white_36px.svg" ng-show="vm.isShowDashboard"></md-icon>
+            <md-icon md-svg-src="assets/css/svg/ic_show_chart_white_36px.svg" ng-hide="vm.isShowDashboard"></md-icon>
+        </md-button>
+    </div>
+
+    <!-- show/hide dashboard-->
+    <div class="fixed-bottom-right" ng-show="vm.isShowDetailErrorGroup">
+        <md-button class="md-fab" style="width: 40px; height: 40px; padding: 0 0 0 0px;" ng-click="vm.showErrorsOfGroup()"  aria-label="Show dashboard">
+            <md-tooltip md-direction="bottom">
+                Back
+            </md-tooltip>
+            <md-icon md-svg-src="assets/css/svg/ic_arrow_back_white_24px.svg"></md-icon>
+        </md-button>
+    </div>
+
+    <!-- Dashboard -->
+    <div layout="row" ng-show="vm.isShowDashboard && !vm.isShowDetailErrorGroup">
+        <div layout="column" flex="50" style="margin-right: 10px">
+            <span class="category-title">Tổng lỗi theo trạng thái</span>
+            <div class="w3-card-2" google-chart chart="vm.pieChart"  style="height:250px; width:100%;"></div>
+        </div>
+        <div layout="column" flex="50" style="margin-left: 10px">
+            <span class="category-title">Tổng lỗi theo ứng dụng</span>
+            <div class="w3-card-2" google-chart chart="vm.barChart"  style="height:250px; width:100%;"></div>
+        </div>
+    </div>
+
+    <!-- Details -->
+    <div layout="column" style="margin-top: 10px" ng-hide="vm.isShowDetailErrorGroup">
+        <span class="category-title" flex="10">Chi tiết lỗi</span>
+        <!-- FILTER -->
+        <div layout="row" layout-fill="true">
+            <md-input-container style="width: 100%; margin:0 0 0 0px;">
+                <input type="text" ng-model="vm.errorGroupFilter" placeholder="Filter">
+            </md-input-container>
+        </div>
+
+        <!-- List error group -->
+        <div class="w3-card-2 w3-container">
+            <!-- Mỗi ERROR GROUP hiển thị trên 1 line-->
+            <!-- Header -->
+            <div layout="row" class="w3-blue" style="padding-top: 10px; padding-bottom: 10px; padding-left: 10px;">
+                <div class="c5">
+                    <div><b>SUM</b></div>
+                </div>
+                <div class="c10">
+                    <div><b>Trạng thái</b></div>
+                </div>
+                <div class="c10">
+                    <div><b>Loại</b></div>
+                </div>
+                <div class="c20">
+                    <div><b>Mã ứng dụng</b></div>
+                </div>
+                <div>
+                    <div><b>Stack-trace</b></div>
+                </div>
+            </div>
+            <!-- Danh sách nhóm lỗi-->
+            <!--<div class="w3-hover-light-blue" ng-repeat="errorGroup in vm.listErrorGroups | filter:vm.errorGroupFilter" layout="row" class="w3-border-bottom" style="padding-top: 10px; padding-bottom: 10px; padding-left: 10px">-->
+                <!--<div class="c100" layout="column">-->
+                    <!--&lt;!&ndash; Basic info &ndash;&gt;-->
+                    <!--<div layout="row" class="w3-border-bottom">-->
+                        <!--<div class=" c5"> <div class="w3-tag w3-red"> {{errorGroup.quantity}} </div></div>-->
+
+                        <!--&lt;!&ndash; Status &ndash;&gt;-->
+                        <!--<div class="c10" ng-show="errorGroup.status=='NEW'"><div class="w3-tag w3-red c80">New</div></div>-->
+                        <!--<div class="c10" ng-show="errorGroup.status=='FIXED'"><div class="w3-tag w3-green c80">Fixed</div></div>-->
+                        <!--<div class="c10" ng-show="errorGroup.status=='IN-PROGRESS'"><div class="w3-tag w3-orange c80">In-Progress</div></div>-->
+
+                        <!--<div class="c10">{{errorGroup.type}}</div>-->
+                        <!--<div class="c20">{{errorGroup.appId}}</div>-->
+                        <!--<div class="">{{errorGroup.info.substring(0,80)}}</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+
+                <md-list >
+                    <md-list-item class="no-before" ng-repeat="errorGroup in vm.listErrorGroups | filter:vm.errorGroupFilter" layout="column" ng-click="vm.showErrors(errorGroup)">
+                        <div class="c100" layout="column">
+                            <!-- Basic info -->
+                            <div layout="row" class="w3-border-bottom">
+                                <div class="row_cell c5"> <div class="w3-tag w3-red"> {{errorGroup.quantity}} </div></div>
+
+                                <!-- Status -->
+                                <div class="row_cell c10" ng-show="errorGroup.status=='NEW'"><div class="w3-tag w3-red c80">New</div></div>
+                                <div class="row_cell c10" ng-show="errorGroup.status=='FIXED'"><div class="w3-tag w3-green c80">Fixed</div></div>
+                                <div class="row_cell c10" ng-show="errorGroup.status=='IN-PROGRESS'"><div class="w3-tag w3-orange c80">In-Progress</div></div>
+
+                                <div class="row_cell c10">{{errorGroup.type}}</div>
+                                <div class="row_cell c20">{{errorGroup.appId}}</div>
+                                <div class="row_cell">{{errorGroup.info.substring(0,80)}}</div>
+                            </div>
+                        </div>
+                    </md-list-item>
+                </md-list>
+        </div>
+    </div>
+
+    <!-- Details info -->
+    <div ng-show="vm.isShowDetailErrorGroup">
+        <span class="category-title" flex="10">Chi tiết lỗi</span>
+        <div class="w3-card-2 w3-container" style="margin-top: 10px">
+            <!-- Basic info -->
+            <div layout="row" class="w3-border-bottom">
+                <div class="c30">
+                    <h4>Thông tin chung</h4>
+                    <md-input-container md-no-float class="md-block">
+                        <label>Mã ứng dụng</label>
+                        <input ng-model="vm.errorGroupSelected.appId" type="text"  disabled style="color: black">
+                    </md-input-container>
+                    <md-input-container md-no-float class="md-block">
+                        <label>Số lần xuất hiện</label>
+                        <input ng-model="vm.errorGroupSelected.quantity" type="text" disabled style="color: black">
+                    </md-input-container>
+                    <md-input-container md-no-float class="md-block">
+                        <label>Trạng thái</label>
+                        <input ng-model="vm.errorGroupSelected.status" type="text" disabled style="color: black">
+                    </md-input-container>
+                    <md-input-container md-no-float class="md-block">
+                        <label>Loại</label>
+                        <!--<md-icon md-svg-src="assets/css/svg/ic_format_list_numbered_black_24px.svg"></md-icon>-->
+                        <input ng-model="vm.errorGroupSelected.type" type="text"  disabled style="color: black">
+                    </md-input-container>
+                </div>
+                <div class="c70" style="margin-left: 10px; margin-bottom: 10px;">
+                    <h4>Full stack-trace</h4>
+                    <div class="w3-code jsHigh">
+                        <pre>{{vm.errorGroupSelected.info}}</pre>
+                    </div>
+                </div>
+            </div>
+            <!-- Message info -->
+            <div ng-show="vm.isUpdateStatusSucess && vm.isAfterUpdateStatus" class="w3-panel w3-green">
+                <h3>Success!</h3>
+                <p>Update status success.</p>
+            </div>
+            <div ng-show="!vm.isUpdateStatusSucess && vm.isAfterUpdateStatus" class="w3-panel w3-red">
+                <h3>Errors!</h3>
+                <p>Update status error.</p>
+            </div>
+            <!-- Stack trace -->
+            <div>
+                <h3>Phân bố lỗi theo thiết bị/phiên bản</h3>
+                <!-- Header -->
+                <div layout="row" class="w3-blue" style="padding-top: 10px; padding-bottom: 10px; padding-left: 10px;">
+                    <div class="c30">
+                        <div><b>Thông tin phần cứng</b></div>
+                    </div>
+                    <div class="c30" layout="column">
+                        <div><b>Thông tin phần mềm</b></div>
+                    </div>
+                    <div class="c20">
+                        <div><b>Số lần lặp lại</b></div>
+                    </div>
+                    <div class="c20">
+                        <div><b>Hành động</b></div>
+                    </div>
+                </div>
+                <div class="w3-hover-light-blue" ng-repeat="error in vm.errorGroupSelected.errors" layout="row" class="w3-border-bottom" style="padding-top: 10px; padding-bottom: 10px; padding-left: 10px">
+
+                    <div class="c30" ng-show="vm.isAppIos">
+                        <div>Device UUID: {{error.deviceId}}</div>
+                        <div>Dòng máy: {{error.phoneModel}}</div>
+                    </div>
+                    <div class="c30" layout="column" ng-show="vm.isAppIos">
+                        <div>Phiên bản hệ điều hành: {{error.osVersion}}</div>
+                        <div>Phiên bản code {{error.bundleVersion}}</div>
+                    </div>
+
+                    <div class="c30" ng-show="vm.isAppAndroid">
+                        <div>IMEI: {{error.DEVICE_ID}}</div>
+                        <div>Hãng: {{error.BRAND}}</div>
+                        <div>Dòng máy: {{error.PHONE_MODEL}}</div>
+                    </div>
+                    <div class="c30" layout="column" ng-show="vm.isAppAndroid">
+                        <div>Phiên bản hệ điều hành: {{error.ANDROID_VERSION}}</div>
+                        <div>Phiên bản code {{error.APP_VERSION_CODE}}</div>
+                        <div>Phiên bản ứng dụng: {{error.APP_VERSION_NAME}}</div>
+                    </div>
+
+                    <div class="c20">
+                        {{error.count}}
+                        <!--<br/>-->
+                        <!--{{error.errorIds}}-->
+                    </div>
+                    <div class="c20">
+                        <md-button class="w3-blue pd-left-0" ng-show="vm.errorGroupSelected.status=='NEW'" ng-click="vm.changeStatus(error, 'IN-PROGRESS')">Xử lý</md-button>
+                        <md-button class="w3-blue pd-left-0"  ng-show="vm.errorGroupSelected.status=='IN-PROGRESS'" ng-click="vm.changeStatus(error, 'FIXED')">Xong</md-button>
+                        <md-button class="w3-blue pd-left-0"  ng-show="vm.errorGroupSelected.status=='FIXED'" ng-click="vm.changeStatus(error, 'NEW')">Mở lại</md-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

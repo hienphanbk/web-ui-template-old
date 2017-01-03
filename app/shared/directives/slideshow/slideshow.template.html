@@ -1,0 +1,18 @@
+<div layout="row" class="w3-light-grey no-animate">
+    <div class="center-all w3-hover-blue" ng-click="prev()">
+        <i class="material-icons md-36">keyboard_arrow_left</i>
+    </div>
+    <div layout="row" flex class="pd10 no-animate">
+        <div ng-repeat="image in showImageUrls" class="center-all no-animate" >
+            <!--<img class="w3-card-2 center-all no-animate" style="width:90%" ng-src="{{image}}"/>-->
+            <img class="w3-card-2 center-all no-animate" style="width:90%" ng-src="{{image}}"/>
+        </div>
+
+        <!--<div ng-repeat="image in images" class="center-all" >-->
+            <!--<img ng-hide="showImageUrls.indexOf(image)<0" class="w3-card-2 center-all" style="width:90%" ng-src="{{image}}"/>-->
+        <!--</div>-->
+    </div>
+    <div class="center-all w3-hover-blue" ng-click="next()">
+        <i class="material-icons md-36">keyboard_arrow_right</i>
+    </div>
+</div>

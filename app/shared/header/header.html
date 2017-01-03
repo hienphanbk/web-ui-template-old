@@ -1,0 +1,13 @@
+<md-toolbar style="background:#f1f1f1; color:black" >
+    <!-- Header -->
+    <div class="md-toolbar-tools" ng-controller="HeaderController as vm">
+        <img src="{{vm.logo}}"/>
+        <!-- <span>  {{vm.title}}</span> -->
+        <div ng-show="vm.isIos">[I-OS]</div>
+        <div ng-show="vm.isAndroid">[ANDROID]</div>
+        <span flex></span>
+    </div>
+
+    <!-- Menu -->
+    <ng-include src="'app/shared/menu/menu.html'" ></ng-include>
+</md-toolbar>

@@ -1,0 +1,15 @@
+<div ng-show="!disable" layout="row" style="width:100%">
+    <div ng-repeat="i in [0, 1, 2, 3, 4]">
+        <div ng-click="changeValue(i+1)" ng-show="!stars[i]"><i style="cursor: pointer" class="material-icons md-18 orangered">star_border</i></div>
+        <div ng-click="changeValue(i+1)" ng-show="stars[i]"><i style="cursor: pointer" class="material-icons md-18 orangered">star</i></div>
+    </div>
+    <div> ({{value}}/5)</div>
+</div>
+
+<div ng-show="disable" layout="row" style="width:100%">
+    <div ng-repeat="i in [0, 1, 2, 3, 4]">
+        <div ng-show="!stars[i]"><i class="material-icons md-18 orangered">star_border</i></div>
+        <div ng-show="stars[i]"><i class="material-icons md-18 orangered">star</i></div>
+    </div>
+    <div> ({{value}}/5)</div>
+</div>

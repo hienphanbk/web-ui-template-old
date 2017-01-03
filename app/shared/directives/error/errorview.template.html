@@ -1,0 +1,33 @@
+<div layout="column">
+    <!-- Stack trace-->
+    <div layout="row">
+        <div>
+            Stack-trace:<br/>
+            {{error.STACK_TRACE}}
+        </div>
+    </div>
+
+    <!-- Error info -->
+    <div layout="row">
+        <!-- Device Info -->
+        <div layout="column" class="c30">
+            <div>{{error.deviceId}}</div>
+            <div>{{error.BRAND}}</div>
+            <div>{{error.PHONE_MODEL}}</div>
+            <div>{{error.ANDROID_VERSION}}</div>
+        </div>
+
+        <!-- Thông tin phần mềm -->
+        <div layout="column" flex="c20">
+            <div>{{error.APP_VERSION_CODE}}</div>
+            <div>{{error.APP_VERSION_NAME}}</div>
+        </div>
+
+        <!-- Thông tin phụ -->
+        <div layout="column" flex="c20">
+            <div>{{error.status}}</div>
+            <div>{{error.createTime}}</div>
+            <div>{{error.lastUpdateTime}}</div>
+        </div>
+    </div>
+</div>

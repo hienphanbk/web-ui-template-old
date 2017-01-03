@@ -1,0 +1,67 @@
+<md-dialog aria-label="Thay đổi ảnh đại diện của ứng dụng" style="width: 60%;">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Thay đổi ảnh đại diện của ứng dụng</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="closeUpdateIcon()">
+                <md-icon md-svg-src="assets\css\svg\ic_clear_white_36px.svg" aria-label="Close dialog"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <div class="md-dialog-content">
+            <div layout="column">
+                <div layout="row">
+                    <div class="pd10 c20">
+                        <div layout-fill="true">
+                            <img class="app_detail_icon w3-round" src="{{iconAppUpdate.reponseUrl}}">
+                        </div>
+                    </div>
+                    <div layout="row" class="pd10">
+                        <div class="w3-code" style="padding-left: 0px"></div>
+                        <div layout="column" class="pd10">
+                            <md-input-container>
+                                <form id="iconImage">
+                                    <input type="file" file-model="iconAppUpdate"
+                                           ng-disabled="disableUpdateIcon"
+                                           style="color: rgba(0,0,0,0.38)"
+                                           onchange="angular.element(this).scope().uploadIcon(this)">
+                                </form>
+                            </md-input-container>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-show="isErrorUpdateIcon" class="w3-panel w3-red">
+                    <div layout="row">
+                        <h3 flex="95">Errors</h3>
+                        <div flex="5" style="text-align: right">
+                            <md-button class="md-icon-button" ng-click="closeMessageUpdateIcon()">
+                                <i class="material-icons">cancel</i>
+                            </md-button>
+                        </div>
+                    </div>
+                    <p>{{messageUpdateIcon}}</p>
+                </div>
+                <div ng-show="isSuccesUpdateIcon" class="w3-panel w3-green">
+                    <div layout="row">
+                        <h3 flex="95">Success</h3>
+                        <div flex="5" style="text-align: right">
+                            <md-button class="md-icon-button" ng-click="closeMessageUpdateIcon()">
+                                <i class="material-icons">cancel</i>
+                            </md-button>
+                        </div>
+                    </div>
+                    <p>{{messageUpdateIcon}}</p>
+                </div>
+
+                <div ng-show="showUpdateIcon">
+                    <md-button ng-disabled="disableUpdateIcon"
+                               style="margin-left: 0px; margin-right: 10px"
+                               class="w3-blue" flex="25" ng-click="updateIcon()">Cập nhật
+                    </md-button>
+                </div>
+            </div>
+        </div>
+    </md-dialog-content>
+</md-dialog>

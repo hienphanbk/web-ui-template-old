@@ -1,0 +1,49 @@
+<div ng-controller="LoginController as vm" ng-cloak layout-align="center top" layout-fill>
+    <div style="height:5px">
+        <!-- Loading bar -->
+        <md-progress-linear md-mode="indeterminate" ng-show="vm.showLoading"></md-progress-linear>
+    </div>
+    <div layout="row" layout-align="center end" style="margin-top:100px">
+        <div><img src="{{vm.logo}}"/></div>
+    </div>
+    <div layout="row" layout-padding layout-wrap layout-fill style="padding-bottom: 32px;" layout-align="center top"
+         ng-cloak>
+
+        <form name="loginForm">
+            <div layout="column" ng-show="vm.loginVia == vm.LOGIN_VIA_MSISDN">
+                <md-input-container class="md-block">
+                    <label>Số điện thoại</label>
+                    <input required type="text" name="msisdn" ng-model="vm.msisdn" ng-keypress="vm.processKeyPress($event)"/>
+                </md-input-container>
+            </div>
+
+            <div layout="column" ng-show="vm.loginVia == vm.LOGIN_VIA_SSO">
+                <md-input-container class="md-block" style="margin-bottom: 0px">
+                    <label>Mã nhân viên</label>
+                    <input required type="text" name="staffCode" ng-model="vm.staffCode" ng-keypress="vm.processKeyPress($event)"/>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Mật khẩu</label>
+                    <input required type="password" name="password" ng-model="vm.password" ng-keypress="vm.processKeyPress($event)"/>
+                </md-input-container>
+            </div>
+
+            <md-radio-group ng-model="vm.loginVia" layout="row" style="margin-top: 0px; margin-bottom: 15px">
+                <md-radio-button value="{{vm.LOGIN_VIA_SSO}}">Thông tin nhân sự</md-radio-button>
+                <md-radio-button value="{{vm.LOGIN_VIA_MSISDN}}">Số điện thoại</md-radio-button>
+            </md-radio-group>
+
+            <!-- Error message -->
+            <div ng-show="vm.showError" style="color:red">{{vm.errormessage}}</div>
+
+            <div layout="column">
+                <md-button class="md-raised md-primary" style="margin-left:0px; margin-top:0px; width:100%;"
+                           ng-click="vm.login()">Đăng nhập
+                </md-button>
+            </div>
+            <p style="font-size:.8em; width: 100%; text-align: center;">
+                Copyright © Viettel Information Technology Management Center
+            </p>
+        </form>
+    </div>
+</div>

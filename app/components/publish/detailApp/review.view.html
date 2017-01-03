@@ -1,0 +1,19 @@
+<div >
+    <b style="margin-top: 10px; margin-bottom: 10px">Đánh giá người dùng</b>
+    <div layout="row">
+        <div class="w3-tag w3-green" style="font-size: 300%;">{{vm.avgRating}}<i class="material-icons md-24">star</i></div>
+        <div class="w3-border pd10" flex>
+            <div style="text-align: center">Số người đánh giá<br/><span style="font-size: 200%;">{{vm.totalReview}}</span></div>
+        </div>
+    </div>
+
+    <div layout="column" style="margin-top: 10px">
+        <div ng-repeat="review in vm.appReviews" style="background:ghostwhite; margin-bottom: 10px">
+            <div class="w3-leftbar pd10 w3-hover-light-blue" layout="column">
+                <div><b>{{review.userName}}</b>(version: {{review.versionApp}})</div>
+                <div rating-view data="review.rating" disable="true"></div>
+                <div><i style="font-size: 120%">"{{review.content}}"</i></div>
+            </div>
+        </div>
+    </div>
+</div>

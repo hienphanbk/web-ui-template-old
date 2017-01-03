@@ -1,0 +1,78 @@
+<div ng-controller="PublishAppController as vm" style="margin-bottom: 40px">
+    <div class="fixed-bottom-right" layout="column">
+        <md-button class="md-fab" style="width: 40px; height: 40px; padding: 0 0 0 0px;"
+                   ng-show="vm.isListing"
+                   ng-click="vm.initCreateApp()"  aria-label="create user">
+            <md-tooltip md-direction="top">
+                Tạo mới ứng dụng
+            </md-tooltip>
+            <md-icon md-svg-src="assets/css/svg/ic_add_white_36px.svg"></md-icon>
+        </md-button>
+    </div>
+    <!--<div class="fixed-top-right" ng-show="vm.isListing">-->
+        <!--<md-button class="md-fab" style="width: 40px; height: 40px; padding: 0 0 0 0px;"-->
+                   <!--ng-show="vm.isAppAndroid"-->
+                   <!--ng-click="vm.viewAppIos();"-->
+                   <!--aria-label="Show dashboard">-->
+            <!--<md-tooltip md-direction="bottom">-->
+                <!--Danh sách ứng dụng I-OS-->
+            <!--</md-tooltip>-->
+            <!--<md-icon md-svg-src="assets/css/svg/menu.svg"></md-icon>-->
+        <!--</md-button>-->
+        <!--<md-button class="md-fab" style="width: 40px; height: 40px; padding: 0 0 0 0px;"-->
+                   <!--ng-show="vm.isAppIos"-->
+                   <!--ng-click="vm.viewAppAndroid();"-->
+                   <!--aria-label="Show dashboard">-->
+            <!--<md-tooltip md-direction="bottom">-->
+                <!--Danh sách ứng dụng Android-->
+            <!--</md-tooltip>-->
+            <!--<md-icon md-svg-src="assets/css/svg/ic_android_white_24px.svg"></md-icon>-->
+        <!--</md-button>-->
+    <!--</div>-->
+    <div class="fixed-bottom-right" >
+        <md-button class="md-fab" style="width: 40px; height: 40px; padding: 0 0 0 0px;"
+                   ng-show="vm.isCreating"
+                   ng-click="vm.initDataListApp();"
+                   aria-label="Show dashboard">
+            <md-tooltip md-direction="bottom">
+                Danh sách ứng dụng
+            </md-tooltip>
+            <md-icon md-svg-src="assets/css/svg/menu.svg"></md-icon>
+        </md-button>
+    </div>
+
+    <div class="fixed-bottom-right" >
+        <md-button class="md-fab" style="width: 40px; height: 40px; padding: 0 0 0 0px;"
+                   ng-show="vm.isviewDetails"
+                   ng-click="vm.initDataListApp();"
+                   aria-label="Show dashboard">
+            <md-tooltip md-direction="bottom">
+                Back
+            </md-tooltip>
+            <md-icon md-svg-src="assets/css/svg/ic_arrow_back_white_24px.svg"></md-icon>
+        </md-button>
+    </div>
+
+
+    <div ng-show="vm.isMsgErrorGobal" class="w3-panel w3-red">
+        <div layout="row">
+            <h3 flex="95">Errors</h3>
+
+            <div flex="5" style="text-align: right">
+                <md-button class="md-icon-button" ng-click="vm.closeMessageGobal()">
+                    <i class="material-icons">cancel</i>
+                </md-button>
+            </div>
+        </div>
+        <p>{{vm.msgGobal}}</p>
+    </div>
+
+    <!-- Danh sách ứng dụng -->
+    <div ng-show="vm.isListing" ng-include="'app/components/publish/listapp.view.html'"></div>
+
+    <!-- Tạo ứng dụng -->
+    <div ng-show="vm.isCreating" ng-include="'app/components/publish/createapp.view.html'"></div>
+
+    <!-- Chi tiết ứng dụng -->
+    <div ng-show="vm.isviewDetails" ng-include="'app/components/publish/appdetails.view.html'"></div>
+</div>

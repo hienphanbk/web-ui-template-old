@@ -1,0 +1,71 @@
+<div>
+    <div ng-show="vm.isMsgTestSucc" class="w3-panel w3-green">
+        <div layout="row">
+            <h3 flex="95">Success!</h3>
+            <div flex="5" style="text-align: right">
+                <md-button class="md-icon-button" ng-click="vm.closeMsgTest()">
+                    <i class="material-icons">cancel</i>
+                </md-button>
+            </div>
+        </div>
+        <p>{{vm.msgTest}}</p>
+    </div>
+    <div ng-show="vm.isMsgTestError" class="w3-panel w3-red">
+        <div layout="row">
+            <h3 flex="95">Errors</h3>
+
+            <div flex="5" style="text-align: right">
+                <md-button class="md-icon-button" ng-click="vm.closeMsgTest()">
+                    <i class="material-icons">cancel</i>
+                </md-button>
+            </div>
+        </div>
+        <p>{{vm.msgTest}}</p>
+    </div>
+
+    <md-content class="md-padding">
+        <form ng-submit="$event.preventDefault()">
+            <p>Thêm tester vào test ứng dụng</p>
+            <div layout="row">
+                <md-autocomplete flex="100"
+                        md-selected-item="vm.selectedTest"
+                        md-search-text="vm.searchText"
+                        md-search-text-change="vm.querySearch(vm.searchText)"
+                        md-selected-item-change="vm.selectedItemChange(item)"
+                        md-items="item in vm.querySearch(vm.searchText)"
+                        md-item-text="vm.searchText"
+                        md-min-length="3"
+                        placeholder="Nhập số điện thoại hoặc tên tester cần tìm kiếm?">
+                    <md-item-template>
+                        <span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.userId}}-{{item.userName}}</span>
+                    </md-item-template>
+                    <md-not-found>
+                        Không tìm thấy "{{vm.searchText}}" .
+                    </md-not-found>
+                </md-autocomplete>
+                <i style="margin-top: 1%" class="material-icons">search</i>
+            </div>
+            <md-list>
+                <md-list-item style="margin-bottom: 10px; background:ghostwhite;" class="no-before w3-hover-light-blue"
+                              ng-repeat="tester in vm.listCurrentTest">
+                    <div class="w3-leftbar pd10" layout="row">
+                        <i class="material-icons md-48">face</i>
+                        <div layout="column" style="margin-left: 20px; margin-top: 4%">
+                            <span>Mobile    : {{tester.userId}}</span>
+                            <span>Name      : {{ tester.userName }}</span>
+                        </div>
+                        <span flex></span>
+                        <div class="md-secondary">
+                            <md-button style="margin-top: 10%" class="md-icon-button"
+                                       ng-click="vm.removeTest(tester)">
+                                <i class="material-icons" title="Xóa">delete</i>
+                            </md-button>
+                        </div>
+                    </div>
+                </md-list-item>
+            </md-list>
+            <md-button style="margin-left: 0px" class="w3-blue" ng-click="vm.updateListTest()">Cập nhật</md-button>
+
+        </form>
+    </md-content>
+</div>

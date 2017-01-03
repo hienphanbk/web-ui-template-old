@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html ng-app="app" ng-cloak>
+<head>
+    <title>
+        Viettel Angular JS Framework
+    </title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no"/>
+
+    <!-- Angular CSS -->
+    <link rel="stylesheet" href="assets/libs/angular-material/angular-material.css"/>
+
+    <!-- material -->
+    <link rel="stylesheet" href="assets/css/app.css"/>
+
+
+
+    <!-- Google font -->
+    <!-- <link href="https://fonts.googleapis.com/css?family=Roboto:500" rel="stylesheet"> -->
+
+    <style type="text/css">
+        /**
+         * Hide when Angular is not yet loaded and initialized
+         */
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+            display: none !important;
+        }
+		
+		.thumb {
+            width: 80%;
+            height: 80%;
+            background-image: none;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+            margin:5% auto;
+        }
+
+        .car {
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            display: block;
+            overflow: hidden;
+            padding: 7px 10px 0;
+            position: relative;
+        }
+
+        div.iconApp:hover {
+            background-color: #006064;
+            opacity: 0.5;
+        }
+
+        div.titleApp a{
+            font-family: "Roboto",UILanguageFont,Arial,sans-serif;
+            font-size: 20px;
+            text-decoration: none;
+            white-space:nowrap;
+        }
+
+        div.scan{
+            width: 90%;
+            max-width: 90%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #004d40;
+            text-shadow: 0 0 10px rgba(0,0,0,0.3);
+        }
+
+        div.ownedBy a{
+            font-family: "Roboto",UILanguageFont,Arial,sans-serif;
+            font-size: 15px;
+            text-decoration: none;
+            white-space:nowrap;
+
+        }
+
+        div.descApp a{
+            font-family: "Roboto",UILanguageFont,Arial,sans-serif;
+            font-size: 10px;
+            text-decoration: none;
+            white-space:nowrap;
+        }
+
+        div.appInfo a:hover {
+            text-decoration: underline;
+        }
+
+        .appInfo {
+            padding-left: 5%;
+        }
+
+        div.rating a{
+            font-family: "Roboto",UILanguageFont,Arial,sans-serif;
+            font-size: 15px;
+            text-decoration: none;
+            white-space:nowrap;
+        }
+    </style>
+</head>
+<body class="w3-display-container">
+<!-- Fist view -->
+<!--<div ui-view="view" layout="column" layout-fill></div>-->
+<div ui-view="view" layout-fill="true"></div>
+
+    <!-- Load JavaScript files -->
+    <script src="assets/libs/angular/angular.js"></script>
+    <script src="assets/libs/angular-ui-router.js"></script>
+    <script src="assets/libs/angular-animate/angular-animate.min.js"></script>
+    <script src="assets/libs/angular-aria/angular-aria.min.js"></script>
+    <script src="assets/libs/angular-material/angular-material.min.js"></script>
+    <script src="assets/libs/angular-messages/angular-messages.min.js"></script>
+    <script src="assets/libs/bower-angular-cookies/angular-cookies.min.js"></script>
+    <script src="assets/libs/angular-animate/angular-animate.min.js"></script>
+    <script src="assets/libs/filesaver/FileSaver.min.js"></script>
+    <script src="assets/libs/jquery/jquery.min.js"></script>
+    <script src="assets/libs/securities/aes.js"></script>
+
+    <!-- App main js & config load -->
+    <script src="app/app.js"></script>
+    <script src="app/shared/services/cookies.services.js"></script>
+    <script src="app/app.config.js"></script>
+
+    <!-- Load file directive-->
+    <script src="app/shared/directives/iconbutton/iconbtn.directive.js"></script>
+    <script src="app/shared/directives/upload.file.directive.js"></script>
+    <script src="app/shared/directives/app/appview.directive.js"></script>
+    <script src="app/shared/directives/appdetails/appdetails.directive.js"></script>
+    <script src="app/shared/directives/error/errorview.directive.js"></script>
+    <script src="app/shared/directives/rating-input/rating.directive.js"></script>
+    <script src="app/shared/directives/slideshow/slideshow.directive.js"></script>
+
+
+    <!-- Home js -->
+    <script src="app/components/home/home.controller.js"></script>
+
+    <!-- Appstore-->
+    <script src="app/components/appstore/appstore.controller.js"></script>
+    <script src="app/components/appstore/appstore.service.js"></script>
+
+    <!-- Appstore-->
+    <script src="app/components/publish/publish.controller.js"></script>
+
+    <!-- admin -->
+    <script src="app/components/admin/admin.controller.js"></script>
+    <script src="app/components/admin/admin.services.js"></script>
+    <script src="app/components/admin/group/add.group.dialog.controller.js"></script>
+    <script src="app/components/admin/group/update.group.dialog.controller.js"></script>
+
+    <!-- Reports -->
+    <script src="app/components/reports/reports.service.js"></script>
+    <script src="app/components/reports/reports.controller.js"></script>
+
+    <!-- Login js -->
+    <script src="app/shared/login/login.controller.js"></script>
+
+    <!-- Register js -->
+    <script src="app/shared/register/register.controller.js"></script>
+
+    <!-- Meunu js -->
+    <script src="app/shared/menu/menu.controller.js"></script>
+
+    <!-- Header js -->
+    <script src="app/shared/header/header.controller.js"></script>
+
+    <!-- login services -->
+    <script src="app/shared/services/user.services.js"></script>
+    <script src="app/shared/services/httpservice.js"></script>
+	<script src="app/shared/services/app.services.js"></script>
+    <!--Utils services-->
+    <script src="app/shared/services/utils.services.js"></script>
+    <script src="app/shared/services/review.services.js"></script>
+
+    <!--Google Chart lib-->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script src="assets/libs/google-chart/ng-google-chart.min.js"></script>
+
+</body>
+</html>

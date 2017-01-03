@@ -1,0 +1,34 @@
+<div layout="column">
+    <div ng-show="vm.isMsgDescSucc" class="w3-panel w3-green">
+        <div layout="row">
+            <h3 flex="95">Success!</h3>
+            <div flex="5" style="text-align: right">
+                <md-button class="md-icon-button" ng-click="vm.closeMsgDesc()">
+                    <i class="material-icons">cancel</i>
+                </md-button>
+            </div>
+        </div>
+        <p>{{vm.message}}</p>
+    </div>
+    <div ng-show="vm.isMsgErrorDesc" class="w3-panel w3-red">
+        <div layout="row">
+            <h3 flex="95">Errors</h3>
+            <div flex="5" style="text-align: right">
+                <md-button class="md-icon-button" ng-click="vm.closeMsgDesc()">
+                    <i class="material-icons">cancel</i>
+                </md-button>
+            </div>
+        </div>
+        <p>{{vm.message}}</p>
+    </div>
+    <md-input-container flex="100">
+                <textarea ng-show="true" ng-model="vm.newDescApp"
+                          rows="4" md-select-on-focus>
+                </textarea>
+    </md-input-container>
+    <div>
+        <md-button ng-click="vm.updateDescApp(vm)" class="w3-blue">
+            Lưu
+        </md-button>
+    </div>
+</div>

@@ -1,0 +1,147 @@
+<div ng-controller="AdminController as vm">
+    <div class="fixed-bottom-right">
+        <md-button class="md-fab" style="width: 40px; height: 40px; padding: 0 0 0 0px;" ng-click="vm.showCreateUserArea()"  aria-label="create user">
+            <md-tooltip md-direction="top">
+                Create new user
+            </md-tooltip>
+            <md-icon md-svg-src="assets/css/svg/ic_add_white_36px.svg"></md-icon>
+        </md-button>
+    </div>
+
+    <!-- Danh sach groups -->
+    <div ng-include="'app/components/admin/group/admin.groups.html'"></div>
+
+    <!-- Danh sach user -->
+    <div layout="column" layout-fill="true" style="margin-top: 20px">
+        <!--<div class="category-title">Users</div>-->
+
+        <!-- Filter action -->
+        <div layout="row">
+            <md-input-container layout-fill="true">
+                <input type="text" ng-model="vm.filter" placeholder="Filter">
+            </md-input-container>
+        </div>
+
+        <!-- Create user area -->
+        <div ng-show="vm.isCreatingUser">
+            <div class="category-title">Create User</div>
+            <div class="w3-container w3-card-2" layout="column">
+                <form>
+                    <div layout="row">
+                        <md-input-container flex="50">
+                            <label>Mobile Number</label>
+                            <input ng-model="vm.createdUserMsisdn">
+                        </md-input-container>
+                        <md-input-container flex="50">
+                            <label>Full name</label>
+                            <input ng-model="vm.createdUserName">
+                        </md-input-container>
+                    </div>
+                    <md-input-container style="width: 100%">
+                        <fieldset class="w3-container w3-border w3-round">
+                            <legend>Select Roles</legend>
+                            <div layout="row" style="margin-top:10px">
+                                <md-checkbox ng-model="vm.createdUserIsAdmin" flex-lt-md="10">Admin</md-checkbox>
+                                <md-checkbox ng-model="vm.createdUserIsPublisher" flex-lt-md="10">Publisher</md-checkbox>
+                                <md-checkbox ng-model="vm.createdUserIsNormal" flex="10">Normal</md-checkbox>
+                            </div>
+                        </fieldset>
+                    </md-input-container>
+
+                    <div ng-show="(vm.createUserSuccess && vm.afterCreateUser)" class="w3-panel w3-green">
+                        <h3>Success!</h3>
+                        <p>User {{vm.createdUserName}} created.</p>
+                    </div>
+
+                    <div ng-show="((!vm.createUserSuccess) && vm.afterCreateUser)" class="w3-panel w3-red">
+                        <h3>Errors!</h3>
+                        <p>There are some problems when trying to create user. {{vm.createUserErrorMessage}}</p>
+                    </div>
+
+                    <div layout="row" style="margin-bottom: 10px; margin-top: 10px">
+                        <md-button class="md-raised" ng-click="vm.createUser()" >Create</md-button>
+                        <md-button class="md-raised" ng-click="vm.closeCreateUserArea()">Close</md-button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- update user area -->
+        <div ng-show="vm.isUpdatingUser">
+            <div class="category-title">Update User</div>
+            <div class="w3-container w3-card-2" layout="column">
+                <form>
+                    <div layout="row">
+                        <md-input-container flex="50">
+                            <label>Mobile Number</label>
+                            <input ng-model="vm.selectedUser.id" disabled>
+                        </md-input-container>
+                        <md-input-container flex="50">
+                            <label>Full name</label>
+                            <input ng-model="vm.selectedUser.name">
+                        </md-input-container>
+                    </div>
+                    <md-input-container style="width: 100%">
+                        <fieldset class="w3-container w3-border w3-round">
+                            <legend>Select Roles</legend>
+                            <div layout="row" style="margin-top:10px">
+                                <md-checkbox ng-model="vm.updateUserIsAdmin" flex="10">Admin</md-checkbox>
+                                <md-checkbox ng-model="vm.updateUserIsPublisher" flex="10">Publisher</md-checkbox>
+                                <md-checkbox ng-model="vm.updateUserIsNormal" flex="10">Normal</md-checkbox>
+                            </div>
+                        </fieldset>
+                    </md-input-container>
+
+                    <div ng-show="(vm.updateUserSuccess && vm.afterUpdatingUser)" class="w3-panel w3-green">
+                        <h3>Success!</h3>
+                        <p>User {{vm.selectedUser.name}} updated.</p>
+                    </div>
+
+                    <div ng-show="((!vm.updateUserSuccess) && vm.afterUpdatingUser)" class="w3-panel w3-red">
+                        <h3>Errors!</h3>
+                        <p>There are some problems when trying to update user. {{vm.updateUserErrorMessage}}</p>
+                    </div>
+
+                    <div layout="row" style="margin-bottom: 10px; margin-top: 10px">
+                        <md-button class="md-raised" ng-click="vm.updateUser()" >Update</md-button>
+                        <md-button class="md-raised" ng-click="vm.closeUpdateUserArea()">Close</md-button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- List users -->
+        <div ng-show="!vm.isCreatingUser">
+            <div class="category-title">Danh sách người dùng</div>
+            <div class="w3-container w3-card-2" layout="column">
+                <md-list>
+                    <!--<md-list-item ng-repeat="user in vm.users | filter:vm.filter" ng-click="goToPerson(person.name, $event)" class="noright">-->
+                    <md-list-item ng-repeat="user in vm.users | filter:vm.filter" ng-click="vm.showUserDetails(user, $event)">
+                        <img ng-show="user.img" ng-src="{{ user.img }}" class="md-avatar" />
+                        <i ng-hide="user.img" class="material-icons md-48">face</i>
+                        <div layout="column" style="margin-left: 10px">
+                            <span>Mobile    : {{user.id}}</span>
+                            <span>Name      : {{ user.name }}</span>
+                        </div>
+                        <span flex></span>
+                        <md-chips name="roles" ng-model="user.roles" md-removable="false" readonly="true" md-max-chips="3">
+                            <md-chip-template>
+                                <span style="font-size: small">{{$chip}}</span>
+                            </md-chip-template>
+                        </md-chips>
+                        <div class="md-secondary">
+                            <md-switch style="width:100px" ng-model="user.active" aria-label="Status" ng-click="vm.changeUserStatus(user, $event)">
+                                <span ng-show="user.active">Active</span>
+                                <span ng-hide="user.active">In-Active</span>
+                            </md-switch>
+                        </div>
+                        <!--<md-checkbox aria-label="isActive" aria-readonly="true" class="md-secondary" ng-model="user.active"></md-checkbox>-->
+                        <!--<md-icon md-svg-icon="communication:email"  ng-click="doSecondaryAction($event)" aria-label="Send Email" class="md-secondary md-hue-3" ></md-icon>-->
+                        <!--<md-icon class="md-secondary" ng-click="doSecondaryAction($event)" aria-label="Chat" md-svg-icon="communication:message"></md-icon>-->
+                    </md-list-item>
+                </md-list>
+            </div>
+        </div>
+    </div>
+
+</div>

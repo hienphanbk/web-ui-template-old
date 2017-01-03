@@ -1,0 +1,26 @@
+<!--<div class="c70" layout="column" layout-fill="">-->
+<md-dialog class="c70">
+    <div class="w3-blue" layout="row" style="padding-left: 10px; padding-right: 10px">
+        <h4>Thêm mới nhóm người dùng</h4>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()" style="margin: auto">
+            <md-icon md-svg-src="assets/css/svg/ic_close_white_24px.svg" aria-label="Close dialog"></md-icon>
+        </md-button>
+    </div>
+    <div style="padding: 10px">
+        <md-input-container class="md-block" style="margin-bottom: 0px">
+            <label>Mã nhóm (Ví dụ: vitm_mobile)</label>
+            <input ng-model="userGroup.id" required type="text" name="groupId" />
+        </md-input-container>
+        <md-input-container class="md-block" style="margin-bottom: 0px">
+            <label>Tên nhóm</label>
+            <input ng-model="userGroup.name"  required type="text" name="groupId"/>
+        </md-input-container>
+        <md-input-container class="md-block" style="margin-bottom: 0px">
+            <label>Mô tả</label>
+            <!--<input required type="text" name="groupId"/>-->
+            <textarea ng-model="userGroup.desc"  rows="3" md-select-on-focus></textarea>
+        </md-input-container>
+        <md-button class="w3-blue" style="margin-left: 0px; margin-bottom: 0px" ng-click="addUserGroup()">Tạo mới</md-button>
+    </div>
+</md-dialog>

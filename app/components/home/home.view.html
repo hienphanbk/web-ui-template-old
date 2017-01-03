@@ -1,0 +1,51 @@
+<div ng-controller="HomeController as vm" ng-cloak>
+		<!--<input type="file" ng-model="vm.fileData" onchange="angular..fileChange(event)">-->
+    <div layout="row">
+        <div flex="50">
+            <div class="category-title">Upload install file</div>
+            <div layout="row">
+                <input type = "file" file-model = "vm.fileData"/>
+                <button ng-click = "vm.uploadFile()">Upload</button>
+            </div>
+            <hr/>
+            <!--//RESPONSE DATA IF SUCCESS-->
+            <!--appName		:		"Uni.ONE"-->
+            <!--minSdk		:		"14"-->
+            <!--os			:		"ANDROID"-->
+            <!--targetSdk		:		"22"-->
+            <!--versionCode		:		186-->
+            <!--versionName		:		"185.2(public)"-->
+            appName: {{vm.appInfo.appName}} <br/>
+            OS: {{vm.appInfo.os}} <br/>
+            Version Name: {{vm.appInfo.versionName}} <br/>
+            Version Code: {{vm.appInfo.versionCode}} <br/>
+            Min SDK: {{vm.appInfo.minSdk}} <br/>
+            Target SDK: {{vm.appInfo.targetSdk}} <br/>
+            Uploaded Path: {{vm.appInfo.uploadedFilePath}} <br/>
+            <hr>
+        </div>
+        <div flex="5"></div>
+        <div flex="45">
+            <div class="category-title">Upload images file</div>
+            <div layout="row">
+                <input type = "file" file-model = "vm.imageFileData"/>
+                <button ng-click = "vm.uploadImageFile()">Upload</button>
+            </div>
+            <hr/>
+            image URI = {{vm.imageURI}}
+            <hr>
+        </div>
+    </div>
+		<div layout="column">
+			<div>Demo download and show images</div>
+			<md-input-container>
+				<md-input>
+					<label>File Path</label>
+					<input ng-model="vm.imageViewName" type="text" placeholder="Enter file name">
+				</md-input>
+
+			</md-input-container>
+			<md-button ng-click="vm.downloadImg()">Download</md-button>
+			<img ng-src="{{vm.image}}">
+		</div>
+</div>

@@ -1,0 +1,85 @@
+<div ng-controller="AppStoreController as vm" layout="column" style="margin-bottom: 40px;">
+    <div class="fixed-bottom-right" ng-show="vm.isShowAppDetails">
+        <md-button class="md-fab" style="width: 40px; height: 40px; padding: 0 0 0 0px;" ng-click="vm.closeAppDetailsView()"  aria-label="back">
+            <md-tooltip md-direction="bottom">
+                Quay lại
+            </md-tooltip>
+            <md-icon md-svg-src="assets/css/svg/ic_arrow_back_white_24px.svg"></md-icon>
+        </md-button>
+    </div>
+
+    <div ng-show="vm.islistApp && vm.isAppAndroid" layout="column">
+        <!-- Publish apps -->
+        <div layout="column">
+            <span class="category-title">Đã phát hành</span>
+            <div>
+                <md-grid-list md-cols="1" md-cols-sm="2" md-cols-md="4" md-cols-gt-md="6"
+                              md-row-height-gt-md="4:6" md-row-height="4:6"
+                              md-gutter="32px" md-gutter-gt-sm="16px">
+                    <md-grid-tile ng-repeat="app in vm.publishedAppsAndroid" class="w3-card-2">
+                        <div app-view data="app"
+                             on-download-click="vm.onDownloadClick(app)"
+                             on-image-click="vm.onImageClick(app)"
+                             on-username-click="vm.onUsernameClick(app)"
+                             style="height: 100%; width: 100%"></div>
+                    </md-grid-tile>
+                </md-grid-list>
+            </div>
+        </div>
+
+        <!-- Testing apps -->
+        <div layout="column" style="margin-top: 10px;">
+            <span class="category-title">Đang kiểm thử</span>
+            <md-grid-list md-cols="1" md-cols-sm="2" md-cols-md="3" md-cols-gt-md="6" md-row-height-gt-md="4:6"
+                          md-row-height="4:6" md-gutter="32px" md-gutter-gt-sm="16px">
+                <md-grid-tile ng-repeat="app in vm.testingAppsAndroid" class="w3-card-2">
+                    <div app-view data="app"
+                         on-download-click="vm.onDownloadClick(app)"
+                         on-image-click="vm.onImageClick(app)"
+                         on-username-click="vm.onUsernameClick(app)"
+                         style="height: 100%; width: 100%"></div>
+                </md-grid-tile>
+            </md-grid-list>
+        </div>
+    </div>
+    <div ng-show="vm.islistApp && vm.isAppIos" layout="column">
+        <!-- Publish apps -->
+        <div layout="column">
+            <span class="category-title">Đã phát hành</span>
+            <div>
+                <md-grid-list md-cols="1" md-cols-sm="2" md-cols-md="4" md-cols-gt-md="6"
+                              md-row-height-gt-md="4:6" md-row-height="4:6"
+                              md-gutter="32px" md-gutter-gt-sm="16px">
+                    <md-grid-tile ng-repeat="app in vm.publishedAppsIos" class="w3-card-2">
+                        <div app-view data="app"
+                             on-download-click="vm.onDownloadClick(app)"
+                             on-image-click="vm.onImageClick(app)"
+                             on-username-click="vm.onUsernameClick(app)"
+                             style="height: 100%; width: 100%"></div>
+                    </md-grid-tile>
+                </md-grid-list>
+            </div>
+        </div>
+
+        <!-- Testing apps -->
+        <div layout="column" style="margin-top: 10px;">
+            <span class="category-title">Đang kiểm thử</span>
+            <md-grid-list md-cols="1" md-cols-sm="2" md-cols-md="3" md-cols-gt-md="6" md-row-height-gt-md="4:6"
+                          md-row-height="4:6" md-gutter="32px" md-gutter-gt-sm="16px">
+                <md-grid-tile ng-repeat="app in vm.testingAppsIos" class="w3-card-2">
+                    <div app-view data="app"
+                         on-download-click="vm.onDownloadClick(app)"
+                         on-image-click="vm.onImageClick(app)"
+                         on-username-click="vm.onUsernameClick(app)"
+                         style="height: 100%; width: 100%"></div>
+                </md-grid-tile>
+            </md-grid-list>
+        </div>
+    </div>
+
+    <!-- App details -->
+    <div ng-show="vm.isShowAppDetails" layout="column">
+        <div app-details-view data="vm.selectedApp">
+        </div>
+    </div>
+</div>

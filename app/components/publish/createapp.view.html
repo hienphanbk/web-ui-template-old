@@ -1,0 +1,232 @@
+<div layout="column">
+    <!-- ANH VV-->
+    <div class="category-title">Tạo mới ứng dụng</div>
+    <div ng-show="vm.step == 1">
+        <div class="w3-card-2" style="padding: 10px 10px 10px 10px">
+            <div layout="row">
+                <span flex="20" style="font-weight: bold;">Upload file cài đặt</span>
+                <form id="fileApp" flex="40">
+                    <input type="file"
+                           file-model="vm.fileApp"/>
+                </form>
+            </div>
+            <div ng-show="vm.isErrorStep1" class="w3-panel w3-red">
+                <div layout="row">
+                    <h3 flex="95">Errors</h3>
+
+                    <div flex="5" style="text-align: right">
+                        <md-button class="md-icon-button" ng-click="vm.closeMessageStep1()">
+                            <i class="material-icons">cancel</i>
+                        </md-button>
+                    </div>
+                </div>
+                <p>{{vm.messageStep1}}</p>
+            </div>
+            <div layout="row">
+                <md-button ng-disabled="vm.isUploadingFile" class="w3-blue" ng-click="vm.uploadFileApk()">Upload file</md-button>
+                <md-progress-circular ng-show="vm.isUploadingFile" class="md-hue-2" md-diameter="50%" style="margin-top: 10px"></md-progress-circular>
+            </div>
+        </div>
+    </div>
+
+
+    <div ng-show="vm.step==2">
+        <div class="w3-container w3-card-2" style="padding: 10px 10px 10px 10px">
+            <div layout="row">
+            <div class="pd10 c20">
+                <div layout-fill="true">
+                    <img class="app_detail_icon w3-round" src="{{vm.iconApp.reponseUrl}}">
+                </div>
+            </div>
+            <div layout="row" class="pd10">
+                <div class="w3-code" style="padding-left: 0px"></div>
+                <div layout="column" class="pd10">
+                    <md-input-container>
+                        <form id="iconImage">
+                            <input type="file" file-model="vm.iconApp"
+                                   style="color: rgba(0,0,0,0.38)"
+                                   onchange="angular.element(this).scope().uploadIconApp(this)">
+                        </form>
+                    </md-input-container>
+                    <div ng-show="vm.isErrorIcon" class="w3-panel w3-red">
+                        <div layout="row">
+                            <h3 flex="95">Errors</h3>
+
+                            <div flex="5" style="text-align: right">
+                                <md-button class="md-icon-button" ng-click="vm.closeMessageIcon()">
+                                    <i class="material-icons">cancel</i>
+                                </md-button>
+                            </div>
+                        </div>
+                        <p>{{vm.messageIcon}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            <div ng-show="vm.appInfo.osType == 'ANDROID'">
+                <div layout="row">
+                    <md-input-container flex="50">
+                        <label>Tên package</label>
+                        <input disabled ng-model="vm.appInfo.packageName" style="color: rgba(0,0,0,0.38)">
+                    </md-input-container>
+                    <md-input-container flex="50">
+                        <label>Tên ứng dụng</label>
+                        <input ng-model="vm.appInfo.name" style="color: rgba(0,0,0,0.38)">
+                    </md-input-container>
+                </div>
+                <div layout="row">
+                    <md-input-container flex="100">
+                        <label>Mô tả</label>
+                        <textarea ng-model="vm.appInfo.descApp"
+                                  rows="4" md-select-on-focus>
+                                </textarea>
+                    </md-input-container>
+                </div>
+                <div layout="row">
+                    <md-input-container flex="50">
+                        <label>Hệ điều hành</label>
+                        <input disabled ng-model="vm.appInfo.osType" style="color: rgba(0,0,0,0.38)">
+                    </md-input-container>
+                    <md-input-container flex="50">
+                        <label>Tên file</label>
+                        <input disabled ng-model="vm.appInfo.installFileName" style="color: rgba(0,0,0,0.38)">
+                    </md-input-container>
+                </div>
+                <div layout="row">
+                    <md-input-container flex="50">
+                        <label>Mã phiên bản</label>
+                        <input disabled ng-model="vm.appInfo.versionCode" style="color: rgba(0,0,0,0.38)">
+                    </md-input-container>
+                    <md-input-container flex="50">
+                        <label>Tên phiên bản</label>
+                        <input disabled ng-model="vm.appInfo.versionName" style="color: rgba(0,0,0,0.38)">
+                    </md-input-container>
+                </div>
+                <div layout="row">
+                    <md-input-container flex="50">
+                        <label>Min SDK</label>
+                        <input disabled ng-model="vm.appInfo.minSdk" style="color: rgba(0,0,0,0.38)">
+                    </md-input-container>
+                    <md-input-container flex="50">
+                        <label>Target SDK</label>
+                        <input disabled ng-model="vm.appInfo.targetSdk" style="color: rgba(0,0,0,0.38)">
+                    </md-input-container>
+                </div>
+            </div>
+
+            <div ng-show="vm.appInfo.osType == 'I-OS'">
+                <div layout="row">
+                    <md-input-container flex="50">
+                        <label>Tên bundleId</label>
+                        <input disabled ng-model="vm.appInfo.bundleId" style="color: rgba(0,0,0,0.38)">
+                    </md-input-container>
+                    <md-input-container flex="50">
+                        <label>Tên ứng dụng</label>
+                        <input ng-model="vm.appInfo.name" style="color: rgba(0,0,0,0.38)">
+                    </md-input-container>
+                </div>
+                <div layout="row">
+                    <md-input-container flex="100">
+                        <label>Mô tả</label>
+                        <textarea ng-model="vm.appInfo.descApp"
+                                  rows="4" md-select-on-focus>
+                                </textarea>
+                    </md-input-container>
+                </div>
+                <div layout="row">
+                    <md-input-container flex="50">
+                        <label>Hệ điều hành</label>
+                        <input disabled ng-model="vm.appInfo.osType" style="color: rgba(0,0,0,0.38)">
+                    </md-input-container>
+                    <md-input-container flex="50">
+                        <label>Tên file</label>
+                        <input disabled ng-model="vm.appInfo.installFileName" style="color: rgba(0,0,0,0.38)">
+                    </md-input-container>
+                </div>
+                <div layout="row">
+                    <md-input-container flex="100">
+                        <label>Mã phiên bản</label>
+                        <input disabled ng-model="vm.appInfo.bundleVersion" style="color: rgba(0,0,0,0.38)">
+                    </md-input-container>
+                    <md-input-container flex="50">
+                        <label>Tên phiên bản</label>
+                        <input disabled ng-model="vm.appInfo.bundleVersionName" style="color: rgba(0,0,0,0.38)">
+                    </md-input-container>
+                </div>
+            </div>
+
+            <div ng-show="vm.isSuccesImage" class="w3-panel w3-green">
+                <div layout="row">
+                    <h3 flex="95">Success!</h3>
+
+                    <div flex="5" style="text-align: right">
+                        <md-button class="md-icon-button" ng-click="vm.closeMessageImage()">
+                            <i class="material-icons">cancel</i>
+                        </md-button>
+                    </div>
+                </div>
+                <p>{{vm.messageImage}}</p>
+            </div>
+            <div ng-show="vm.isErrorImage" class="w3-panel w3-red">
+                <div layout="row">
+                    <h3 flex="95">Errors</h3>
+
+                    <div flex="5" style="text-align: right">
+                        <md-button class="md-icon-button" ng-click="vm.closeMessageImage()">
+                            <i class="material-icons">cancel</i>
+                        </md-button>
+                    </div>
+                </div>
+                <p>{{vm.messageImage}}</p>
+            </div>
+            <div layout="row">
+                <span style="font-weight: bold" flex="50">
+                    Ảnh màn hình
+                </span>
+
+                <div flex="50" layout="row">
+                    <md-button class="md-icon-button" flex="10" ng-click="vm.addDemoImg()">
+                        <i class="material-icons">add_circle</i>
+                    </md-button>
+                    <div flex="90" style="text-align: center">
+                        <md-button class="w3-blue" ng-click="vm.createApp()">Thêm mới ứng dụng</md-button>
+                    </div>
+                </div>
+            </div>
+            <div ng-repeat="slide in vm.slides" layout="row">
+                <md-input-container flex="50">
+                    <input type="file"
+                           file-model="slide.img1"
+                           onchange="angular.element(this).scope().uploadDemoImg(this)"
+                           style="color: rgba(0,0,0,0.38)"/>
+                </md-input-container>
+                <md-input-container flex="45">
+                    <input type="file"
+                           file-model="slide.img2"
+                           onchange="angular.element(this).scope().uploadDemoImg(this)"
+                           style="color: rgba(0,0,0,0.38)"/>
+                </md-input-container>
+                <md-button flex="5" class="md-icon-button" ng-click="vm.removeDemoImg(slide)">
+                    <i flex="5" class="material-icons">delete_sweep</i>
+                </md-button>
+            </div>
+            <div layout="column" style="margin-top: 10px">
+                <div slide-show images="vm.listUriImg"></div>
+            </div>
+
+            <!--<div>-->
+                <!--<md-grid-list style=" margin-bottom: 5%;"-->
+                              <!--md-cols-sm="1" md-cols-md="2" md-cols-lg="4" md-cols-gt-lg="6"-->
+                              <!--md-row-height="4:4" md-gutter="10">-->
+                    <!--<md-grid-tile class="w3-card-2" ng-repeat="slide in vm.listImg">-->
+                        <!--<div style="text-align: center">-->
+                            <!--<img class="app_icon w3-round" style="max-width: 100%; max-height: 100%;"-->
+                                 <!--ng-src="{{slide.link}}">-->
+                        <!--</div>-->
+                    <!--</md-grid-tile>-->
+                <!--</md-grid-list>-->
+            <!--</div>-->
+        </div>
+    </div>
+</div>

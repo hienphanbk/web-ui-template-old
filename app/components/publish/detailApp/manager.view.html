@@ -1,0 +1,72 @@
+<div>
+    <div ng-show="vm.isMsgManageSucss" class="w3-panel w3-green">
+        <div layout="row">
+            <h3 flex="95">Success!</h3>
+            <div flex="5" style="text-align: right">
+                <md-button class="md-icon-button" ng-click="vm.closeMsgManage()">
+                    <i class="material-icons">cancel</i>
+                </md-button>
+            </div>
+        </div>
+        <p>{{vm.msgManage}}</p>
+    </div>
+    <div ng-show="vm.isMsgManageError" class="w3-panel w3-red">
+        <div layout="row">
+            <h3 flex="95">Errors</h3>
+
+            <div flex="5" style="text-align: right">
+                <md-button class="md-icon-button" ng-click="vm.closeMsgManage()">
+                    <i class="material-icons">cancel</i>
+                </md-button>
+            </div>
+        </div>
+        <p>{{vm.msgManage}}</p>
+    </div>
+
+    <md-content class="md-padding">
+        <form ng-submit="$event.preventDefault()">
+            <p>Thêm manager vào quản lý ứng dụng</p>
+            <div layout="row">
+            <md-autocomplete
+                    flex="100"
+                    md-selected-item="vm.selectedManage"
+                    md-search-text="vm.searchTextMana"
+                    md-search-text-change="vm.querySearchMana(vm.searchTextMana)"
+                    md-selected-item-change="vm.selectedItemChangeMana(item)"
+                    md-items="item in vm.querySearchMana(vm.searchTextMana)"
+                    md-item-text="vm.searchTextMana"
+                    md-min-length="3"
+                    md-autoselect="true"
+                    placeholder="Nhập mã hoặc tên manager cần tìm kiếm?">
+                <md-item-template>
+                    <span md-highlight-text="vm.searchTextMana" md-highlight-flags="^i">{{item.userId}}-{{item.userName}}</span>
+                </md-item-template>
+                <md-not-found>
+                    Không tìm thấy "{{vm.searchTextMana}}" .
+                </md-not-found>
+            </md-autocomplete>
+            <i style="margin-top: 1%" class="material-icons">search</i>
+            </div>
+            <md-list>
+                <md-list-item style="margin-bottom: 10px; background:ghostwhite;" class="no-before w3-hover-light-blue"
+                              ng-repeat="manager in vm.listCurrentManager">
+                    <div class="w3-leftbar pd10" layout="row">
+                        <i class="material-icons md-48">face</i>
+                        <div layout="column" style="margin-left: 20px; margin-top: 4%">
+                            <span>Mobile    : {{manager.userId}}</span>
+                            <span>Name      : {{ manager.userName }}</span>
+                        </div>
+                        <span flex></span>
+                        <div class="md-secondary">
+                            <md-button style="margin-top: 10%" class="md-icon-button"
+                                       ng-click="vm.removeManage(manager)">
+                                <i class="material-icons" title="Xóa">delete</i>
+                            </md-button>
+                        </div>
+                    </div>
+                </md-list-item>
+            </md-list>
+            <md-button style="margin-left: 0px" class="w3-blue" ng-click="vm.updateListManage()">Cập nhật</md-button>
+        </form>
+    </md-content>
+</div>
